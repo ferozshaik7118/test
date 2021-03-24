@@ -1,0 +1,32 @@
+# Spring properties
+spring:
+  application:
+     name: service
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+  h2:
+    console:
+      enabled: true
+server:
+  port: 8007
+eureka:
+  client:
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://localhost:8006/eureka/
+  instance:
+    health-check-url: ${eureka.client.defaultZone.serviceUrl}/health
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+    lease-renewal-interval-in-seconds: 30
+    prefer-ip-address: false
+    secureVirtualHostName: ${spring.application.name}
+    # for local applications set host as localhost
+    hostname: localhost
+      
